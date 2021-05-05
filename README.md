@@ -10,5 +10,6 @@ Success 확인 후 프로젝트 다시 빌드
 # git 업뎃
 git status
 git add --all
-git commit -m "commit to **** at home on **/**"
+git status
+git commit -m "commit to ** at ** on **/**"
 git push
