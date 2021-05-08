@@ -11,5 +11,6 @@ Success 확인 후 프로젝트 다시 빌드
 git status
 git add --all
 git status
-git commit -m "commit to ** at ** on **/**"
+git commit -m "commit on my *desktop* at *home* on *05/08*
+"
 git push
