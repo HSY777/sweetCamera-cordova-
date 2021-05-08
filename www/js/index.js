@@ -1,6 +1,6 @@
 var app = {
     startCameraAbove: function(){
-      CameraPreview.startCamera({x: 50, y: 50, width: 300, height: 300, toBack: false, previewDrag: true, tapPhoto: true});
+      CameraPreview.startCamera({x: 50, y: 50, width: 300, height: 500, toBack: true, previewDrag: false, tapPhoto: false});
     },
   
     startCameraBelow: function(){
@@ -64,15 +64,7 @@ var app = {
   
     init: function(){
       document.getElementById('startCameraAboveButton').addEventListener('click', this.startCameraAbove, false);
-      document.getElementById('startCameraBelowButton').addEventListener('click', this.startCameraBelow, false);
-  
       document.getElementById('stopCameraButton').addEventListener('click', this.stopCamera, false);
-      document.getElementById('switchCameraButton').addEventListener('click', this.switchCamera, false);
-      document.getElementById('showButton').addEventListener('click', this.show, false);
-      document.getElementById('hideButton').addEventListener('click', this.hide, false);
-      document.getElementById('takePictureButton').addEventListener('click', this.takePicture, false);
-      document.getElementById('selectColorEffect').addEventListener('change', this.changeColorEffect, false);
-      document.getElementById('selectFlashMode').addEventListener('change', this.changeFlashMode, false);
   
       if(navigator.userAgent.match(/Android/i)  == "Android"){
         document.getElementById('zoomSlider').addEventListener('change', this.changeZoom, false);
@@ -81,9 +73,6 @@ var app = {
       }
   
       window.smallPreview = false;
-      document.getElementById('changePreviewSize').addEventListener('click', this.changePreviewSize, false);
-  
-      document.getElementById('showSupportedPictureSizes').addEventListener('click', this.showSupportedPictureSizes, false);
   
       // legacy - not sure if this was supposed to fix anything
       //window.addEventListener('orientationchange', this.onStopCamera, false);
