@@ -7,13 +7,26 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
   </head>
   <body>
-    <div class="controls">
-      <div class="block">
-        <button id="startCameraAboveButton">카메라</button>
-        <button id="stopCameraButton">끄기</button>
+
+    <div class="main-container">
+      <div class="temp-box1">1</div>
+      <div class="temp-box2">2</div>
+      <div class="temp-box3">3</div>
+      <div class="temp-box4">
+        <div class="controls">
+          <div class="block">
+            <button id="startCameraAboveButton">카메라</button>
+            <button id="stopCameraButton">끄기</button>
+            <button id="takePictureButton">찍기</button>
+          </div>
+        </div>
       </div>
     </div>
 
+    <div class="pictures">
+      <p><img id="originalPicture" width="200"/></p>
+    </div>
+    
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="CameraPreview.js"></script>
     <script type="text/javascript" src="js/index.js"></script>

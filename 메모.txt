@@ -3,3 +3,27 @@ css 레이어 참고
 
 https://nykim.work/86
 css 이미지
+
+https://velog.io/@ursr0706/height100%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC
+height 채우기
+
+https://zerodice0.tistory.com/107
+base64예제
+
+https://codebeautify.org/base64-to-image-converter
+https://www.base64-image.de/
+base64 여러가지 필터
+
+https://www.cssscript.com/jpg-png-bmp-image-converter/
+Client-side Image (JPG, PNG, BMP) Converter – ImageConverter
+
+https://coderrocketfuel.com/article/convert-between-jpeg-and-bmp-files-using-node-js-and-jimp
+jpeg to bmp nodejs 참고
+
+https://onlinejpgtools.com/convert-jpg-to-bmp
+bmp로 바꾸는 사이트
+
+https://blog.logrocket.com/image-processing-with-node-and-jimp/
+jimp 그레이스케일 등 예제
+
+jimp bitmap example(구글검색)
