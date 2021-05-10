@@ -24,6 +24,22 @@ https://onlinejpgtools.com/convert-jpg-to-bmp
 bmp로 바꾸는 사이트
 
 https://blog.logrocket.com/image-processing-with-node-and-jimp/
+https://coderrocketfuel.com/article/convert-between-png-and-bmp-files-using-node-js-and-jimp
 jimp 그레이스케일 등 예제
+
+https://stackoverflow.com/questions/39460182/decode-base64-to-hexadecimal-string-with-javascript
+JavaScript를 사용하여 Base64를 16 진수 문자열로 디코딩
+
+https://medium.com/@programminglover/how-to-convert-base64-to-image-file-9d3db4e01885
+base64 to jpg
+
+https://cryptii.com/pipes/base64-to-hex
+base64-to-hex 확인사이트
+
+https://codepen.io/abdhass/full/jdRNdj
+hexadecimal to image 확인사이트
+
+https://examples.javacodegeeks.com/android/core/hardware/camera-hardware/android-camera-example/
+android 프리뷰 + bmp 저장
 
 jimp bitmap example(구글검색)

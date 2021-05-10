@@ -12,6 +12,16 @@ var app = {
         base64img = 'data:image/jpeg;base64,' + imgData //<img src="data:image/<이미지확장자>;base64,<data코드>")
         document.getElementById('originalPicture').src = base64img;
         console.log(base64img);
+
+        function base64ToHex(str) {
+          const raw = window.atob(str);
+          console.log(raw);
+        
+          return raw;
+        }
+        
+        console.log(base64ToHex(imgData));
+        
       });
     },
 
