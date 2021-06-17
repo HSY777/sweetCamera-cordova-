@@ -1,6 +1,6 @@
 var app = {
     startCameraAbove: function(){
-      CameraPreview.startCamera({x: 50, y: 50, width: 300, height: 500, toBack: false, previewDrag: false, tapPhoto: false});
+      CameraPreview.startCamera({x: 50, y: 50, width: 300, height: 500, toBack: true, previewDrag: false, tapPhoto: false});
     },
   
     stopCamera: function(){
@@ -30,7 +30,7 @@ var app = {
       document.getElementById('stopCameraButton').addEventListener('click', this.stopCamera, false);
       document.getElementById('takePictureButton').addEventListener('click', this.takePicture, false);
 
-      CameraPreview.startCamera({x: 50, y: 50, width: 300, height: 500, toBack: false, previewDrag: false, tapPhoto: false});
+      CameraPreview.startCamera({x: 50, y: 50, width: 300, height: 500, toBack: true, previewDrag: false, tapPhoto: false});
     }
   }; 
   

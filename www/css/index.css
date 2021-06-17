@@ -1,17 +1,14 @@
 body, html{
     height:100%;
     margin-right: 5px;
+    margin-bottom: 0px;
   }
 
   .block{
-    padding:.25rem 0;
-    margin:.25rem 0;
-    background: red;
-    border:1px solid #111;
-    border-radius: 0px;
+
   }
-  button{
-    background: gray:
+  button {
+    background-color: black:
     color:#333;
     border-radius: 3px;
     border:1px solid #ccc;
@@ -20,31 +17,35 @@ body, html{
   .pictures{
   
   }
-  .controls{
-    margin-top: -3px;
-  }
   .main-container {
     height: 100%;
-    margin: -10px;
-    
+    margin: -10px;    
   }
-  .temp-box1 {
+  .instaUI-top {
     background: blue;
     height: 10%;
     text-align: center;
+    
   }
-  .temp-box2 {
-    background: yellow;
-    height: 73%;
+  .instaUI-photoArea {
+    height: 60%;
     text-align: center;
   }
-  .temp-box3 {
+  .instaUI-middle {
     background: green;
-    height: 6%;
+    height: 8%;
     text-align: center;
   }
-  .temp-box4 {
+  .instaUI-bottom {
     background: red;
-    height: 11%;
+    height: 22%;
     text-align: center;
+  }
+  #mainMenu {
+    background-color: rgb(145, 80, 80);
+    color:rgb(0, 0, 0);
+    border-radius: 3px;
+    border:1px solid rgb(235, 7, 216);
+    margin:.25rem;
+    float: right;
   }
