@@ -11,6 +11,9 @@
     <script type="text/javascript" src="CameraPreview.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/canvas2image.js" type="text/javascript"></script>
+    <script src="js/opencv.js" type="text/javascript"></script>
+
     <!-- <script type="text/javascript" src="js/test.js"></script> -->
     
   </head>
@@ -21,12 +24,13 @@
       </div>
       <div class="instaUI-photoArea">
         <img id="originalPicture" width="360" height="426"/>
+        <canvas id="canvasPicture" width="360px" height="426px"> </canvas>
       </div>
       <div class="instaUI-middle">3</div>
       <div class="instaUI-bottom">
           <div class="block">
             <!-- <button id="startCameraAboveButton">카메라</button> -->
-            <button id="stopCameraButton">끄기</button> 
+            <button id="printButton">프린트</button> 
             <button id="takePictureButton">찍기</button>
           </div>
       </div>
