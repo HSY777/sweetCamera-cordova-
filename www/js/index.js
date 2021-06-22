@@ -17,6 +17,9 @@ var mPollingTimer = null
 var testCount = 0
 var connectErrorCount = 0
 
+var captureImage = 0;
+var printFinishFlag = 0;
+
 function initiateTestSequence()
 {
 	testCount = 0
@@ -422,6 +425,178 @@ var loadCanvasImage = (imgPath) => {
   }
 }
 
+var onConfirmExit = (button) => {
+	if(button === 2){
+		return;
+	} else {
+		disconnectDevice();
+		setTimeout(() => {
+			navigator.app.exitApp();
+		}, 1000);
+	}
+}
+
+var reloadTakePicturePage = () => {
+	$('.instaUI-photoArea').show();
+	$('.instaUI-middle').show();
+	$('.instaUI-bottom').show();
+	$('.loadingPage').hide();
+
+	$('button#reshoot').hide();
+	$("#originalPicture").hide();
+	$('button#printButton').hide();
+	$('button#takePictureButton').show();
+	$('button#takePictureButton').attr("disabled", false);
+	$('#canvasPicture').hide();
+	$('button#printButton').attr("disabled", false);
+
+		
+		
+	CameraPreview.startCamera({x: 0, y: 69, width: photoArea_width, height: photoArea_height, toBack: true, previewDrag: true, tapPhoto: false});
+}
+
+var imageProcessing = () => {
+	let imgElement = document.getElementById('canvasPicture');
+	let mat = cv.imread(imgElement);
+	let gray = new cv.Mat();
+
+	cv.cvtColor(mat, gray, cv.COLOR_RGB2GRAY, 0);
+	cv.imshow('canvasPicture', gray);
+	mat.delete();
+
+	var canvas = document.getElementById("canvasPicture");
+	bRes = Canvas2Image.saveAsBMP(canvas, true);
+	console.log(bRes.src);
+
+	setTimeout(() => {
+		loadingPageSet();
+		setTimeout(() => {
+			transmitToESP32();
+		},10);
+	}, 10)
+}
+
+var loadingPageSet = () => {
+	//CameraPreview.stopCamera();
+	$('.instaUI-photoArea').hide();
+	$('.instaUI-middle').hide();
+	$('.instaUI-bottom').hide();
+	$('#canvasPicture').hide();
+	$('.loadingPage').show();
+
+	$("#previewPhoto").attr("src", captureImage);
+	$("#progressBar").attr("src", './img/chicken.png');
+	
+}
+
+var transmitToESP32 = () => {
+	if(connectStateBLE === true){
+		var base64photo = bRes.src;
+		//console.log('btnRelayOn = '+ base64photo);
+		var length = base64photo.length;
+		// var dataBuffer;
+
+		//writeandreaddata(base64photo);
+
+		// for(var i = 0; i < length; i++){
+		//   if (i % 1000 == 0){
+		//     dataBuffer += ' ';
+		//   }
+		//   dataBuffer += base64photo.charAt(i);
+		// }
+
+		// var divisionData = dataBuffer.split(" ");
+		// console.log(divisionData);
+		
+		
+		// for(var i = 0; i < divisionData.length; i++){
+		//   console.log('BLE transmit start: ' + i);
+		//  writeandreaddata(divisionData[i]);
+		// }
+		reloadTakePicturePage();
+	} else {
+		setTimeout(() => {
+			printFinishFlag = 1;
+		}, 5000);
+		
+		var intervalID = setInterval(() => {
+			//update progressbar
+			if(printFinishFlag == 1){
+				clearInterval(intervalID);
+				printFinishFlag = 0;
+				reloadTakePicturePage();
+			}
+		},1000)
+		//alert("블루투스 연결을 확인해주세요");
+		//reloadTakePicturePage();
+	}
+}
+
+var initPageSet = () => {
+	$('button#printButton').hide();
+	$('#canvasPicture').hide();
+	$('button#reshoot').hide();
+	$('.loadingPage').hide();
+}
+
+var takePicturePageSet = () => {
+	$('button#takePictureButton').attr("disabled", true);
+	$("#originalPicture").show();
+	$("#originalPicture").attr("src", "./img/dot.png");
+}
+
+var takePictureSequence = () => {
+	setTimeout(() => {
+		console.log(3);
+		$("#originalPicture").attr("src", "./img/count3.png");
+		setTimeout(() => {
+			console.log(2);
+			$("#originalPicture").attr("src", "./img/count2.png");
+			setTimeout(() => {
+				console.log(1);
+				$("#originalPicture").attr("src", "./img/count1.png");
+				setTimeout(() => {
+					console.log('찰칵');
+
+					CameraPreview.takePicture(function(imgData){
+						captureImage = 0;
+						captureImage = 'data:image/jpeg;base64,' + imgData;
+						$("#originalPicture").attr("src", captureImage);
+						CameraPreview.stopCamera();
+
+						// console.log(captureImage);
+						// function base64ToHex(str) {
+						//   const raw = window.atob(str);
+						//   console.log(raw);
+						//   return raw;
+						// }
+						// console.log(base64ToHex(imgData));
+
+						$('button#takePictureButton').hide();
+						$('button#printButton').show();
+						$('button#reshoot').show();
+					});
+				}, 1000)
+			}, 1000)      
+		}, 1000)
+	}, 1000)
+}
+
+var printPhotoPageSet = () => {
+	$('button#printButton').attr("disabled", true);
+	$('#originalPicture').hide();
+	$('button#reshoot').hide();
+	$('#canvasPicture').show();
+}
+
+var printPhotoSequence = () => {
+	setTimeout(() => {
+		loadCanvasImage(captureImage);
+		setTimeout(() => {
+			imageProcessing();
+		}, 10)
+	}, 10)
+}
 
 document.addEventListener('deviceready', function(){
 
@@ -429,102 +604,25 @@ document.addEventListener('deviceready', function(){
 
     CameraPreview.startCamera({x: 0, y: 69, width: photoArea_width, height: photoArea_height, toBack: true, previewDrag: true, tapPhoto: false});
     findDevice();
-
-    $('button#printButton').hide();
-    $('#canvasPicture').hide();
+		initPageSet();
 
     $('button#takePictureButton').click(() =>{
-      // $('button#takePictureButton').attr("disabled", "disabled");
-      $('button#takePictureButton').hide();
-      setTimeout(() => {
-        console.log(3);
-        $("#originalPicture").attr("src", "./img/count3.png");
-        setTimeout(() => {
-          console.log(2);
-          $("#originalPicture").attr("src", "./img/count2.png");
-          setTimeout(() => {
-            console.log(1);
-            $("#originalPicture").attr("src", "./img/count1.png");
-            setTimeout(() => {
-              console.log('찰칵');
-
-              CameraPreview.takePicture(function(imgData){
-                captureImage = 'data:image/jpeg;base64,' + imgData;
-                $("#originalPicture").attr("src", captureImage);
-                CameraPreview.stopCamera();
-
-                // console.log(captureImage);
-                // function base64ToHex(str) {
-                //   const raw = window.atob(str);
-                //   console.log(raw);
-                //   return raw;
-                // }
-                // console.log(base64ToHex(imgData));
-
-              });
-
-              $('button#printButton').show();
-            }, 1000)
-          }, 1000)      
-        }, 1000)
-      }, 1000)
+			takePicturePageSet();
+			takePictureSequence();
     });
 
     $('button#printButton').click(() => {
-      $('button#printButton').hide();
-      $('#originalPicture').hide();
-      $('#canvasPicture').show();
-
-      setTimeout(() => {
-        loadCanvasImage(captureImage);
-        setTimeout(() => {
-          let imgElement = document.getElementById('canvasPicture');
-
-          let mat = cv.imread(imgElement);
-          let gray = new cv.Mat();
-          cv.cvtColor(mat, gray, cv.COLOR_RGB2GRAY, 0);
-          cv.imshow('canvasPicture', gray);
-          mat.delete();
-  
-          var canvas = document.getElementById("canvasPicture");
-          bRes = Canvas2Image.saveAsBMP(canvas, true);
-          console.log(bRes.src);
-
-          setTimeout(() => {
-            if(connectStateBLE === true)
-            {
-              var base64photo = bRes.src;
-              //console.log('btnRelayOn = '+ base64photo);
-              var length = base64photo.length;
-              // var dataBuffer;
-
-              writeandreaddata(base64photo);
-
-              // for(var i = 0; i < length; i++){
-              //   if (i % 1000 == 0){
-              //     dataBuffer += ' ';
-              //   }
-              //   dataBuffer += base64photo.charAt(i);
-              // }
-
-              // var divisionData = dataBuffer.split(" ");
-              // console.log(divisionData);
-              
-              
-              // for(var i = 0; i < divisionData.length; i++){
-              //   console.log('BLE transmit start: ' + i);
-              //  writeandreaddata(divisionData[i]);
-              // }
-              
-            }
-            else {
-              console.log("BLE is not connected");
-            }
-          }, 10)
-        }, 10)
-      }, 10)
+			printPhotoPageSet();
+			printPhotoSequence();
     })
 
+		$('button#mainMenu').click(() => {
+			navigator.notification.confirm('앱을 종료하는게 확실한가요?', onConfirmExit, '확인', ['네','아니요']);
+		});
+
+		$('button#reshoot').click(() => {
+			reloadTakePicturePage();
+		});
 
   });
 
