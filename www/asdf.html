@@ -7,29 +7,52 @@
                      minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
     <title>Insert title here</title>
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript">
-    window.onload = function(){
-        var loadCanvasImage = (imgPath) => {
-            var canvas = document.getElementById("canvas");
-            if(canvas.getContext){
-                var draw = canvas.getContext("2d");
-                
-                var img = new Image();
-                img.src = imgPath;
-                img.onload = function(){
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            height: 100vh;
+            margin: 0;
+        }
 
-                    draw.drawImage(img, 50,50, 300, 400);
-                }
-            }
+        .progress{
+            background-color: #d8d8d8;
+            border-radius: 20px;
+            height: 40px;
+            width: 400px;
+        }
+
+        .progress-done{
+            background: linear-gradient(to left, #F2709C, #FF9472);
+            box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+            border-radius: 20px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            height: 100%;
+            width: 0;
+            transition: 1s ease;
         }
         
-        loadCanvasImage("img/chicken.png");
+    </style>
 
-    }
-    </script>
 </head>
  
 <body>
-    <canvas id="canvas" width="300px" height="400px"></canvas>
+    <div class="progress">
+        <div class="progress-done" data-done="70">70%</div>
+    </div>
+
+    <script type="text/javascript">
+        const progress = document.querySelector('.progress-done');
+        console.log(progress);
+        setTimeout(() => {
+            progress.style.opacity = 1;
+            progress.style.width = 100 + '%';
+        },500);
+    </script>
 </body>
 </html>

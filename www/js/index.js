@@ -515,12 +515,19 @@ var transmitToESP32 = () => {
 		// }
 		reloadTakePicturePage();
 	} else {
-		setTimeout(() => {
-			printFinishFlag = 1;
-		}, 5000);
-		
+		// setTimeout(() => {
+		// 	printFinishFlag = 1;
+		// }, 5000);
+		var add = 0;
+
+
+        
 		var intervalID = setInterval(() => {
-			//update progressbar
+			const progress = document.querySelector('.progress-done');
+			progress.style.opacity = 1;
+			progress.style.width = add + '%';
+			add += 10;
+			
 			if(printFinishFlag == 1){
 				clearInterval(intervalID);
 				printFinishFlag = 0;

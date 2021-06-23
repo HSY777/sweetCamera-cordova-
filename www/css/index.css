@@ -60,9 +60,15 @@ body, html{
     text-align: center;
   }
   #linearProgress{
-    background: white;
+    /* background: white;
     height: 5%;
-    text-align: center;
+    text-align: center; */
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    height: 5%;
+    margin: 0;
   }
   #loadingPageMargin1{
     background: white;
@@ -80,3 +86,23 @@ body, html{
     background: white;
     height: 24%;
   }
+
+  .progress{
+    background-color: #d8d8d8;
+    border-radius: 20px;
+    height: 30px;
+    width: 300px;
+  }
+.progress-done{
+    background: linear-gradient(to left, #F2709C, #FF9472);
+    box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+    border-radius: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    height: 100%;
+    width: 0;
+    transition: 1s ease;
+}
